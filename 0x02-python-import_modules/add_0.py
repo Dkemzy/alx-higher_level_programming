@@ -6,7 +6,7 @@ def add(a, b):
         a: first integer
         b: second integer
 
-    returns: 
+    Returns: 
         The return value. a + b
     """
     return (a + b)
