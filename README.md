@@ -1,1 +1,1 @@
- first python script
+Doublylinked strings
