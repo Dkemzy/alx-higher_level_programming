@@ -1,15 +1,4 @@
 #!/usr/bin/python3
-"""
-
-This is a module that containts a clas that avoids
-dynmaically created attributes
-
-"""
-
-
-class LockedClass:
-    __slots__ = ['first_name']
-
-    def __init__(self):
-        """ Init method """
-        pass
+def magic_string():
+    magic_string.counter = getattr(magic_string, "counter", 0) + 1
+    return ", ".join(["Holberton" for i in range(magic_string.counter)])
