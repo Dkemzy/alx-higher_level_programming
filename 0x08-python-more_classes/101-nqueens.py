@@ -1,57 +1,107 @@
 #!/usr/bin/python3
-class Node:
-    def __init__(self, data, next_node=None):
-        self.data = data
-        self.next_node = next_node
+"""
 
-    @property
-    def data(self):
-        return self.__data
+This module contains an algorithm that resolves the N-Queen puzzle
+using backtracking
 
-    @data.setter
-    def data(self, value):
-        if not isinstance(value, int):
-            raise TypeError("data must be an integer")
-        self.__data = value
-
-    @property
-    def next_node(self):
-        return self.__next_node
-
-    @next_node.setter
-    def next_node(self, value):
-        if not isinstance(value, Node) and value is not None:
-            raise TypeError("next_node must be a Node object")
-        self.__next_node = value
+"""
 
 
-class SinglyLinkedList:
-    def __str__(self):
-        rtn = ""
-        ptr = self.__head
+def isSafe(m_queen, nqueen):
+    """ Method that determines if the queens can or can't kill each other
 
-        while ptr is not None:
-            rtn += str(ptr.data)
-            if ptr.next_node is not None:
-                rtn += "\n"
-            ptr = ptr.next_node
+    Args:
+        m_queen: array that has the queens positions
+        nqueen: queen number
 
-        return rtn
+    Returns:
+        True: when queens can't kill each other
+        False: when some of the queens can kill
 
-    def __init__(self):
-        self.__head = None
+    """
 
-    def sorted_insert(self, value):
-        ptr = self.__head
+    for i in range(nqueen):
 
-        while ptr is not None:
-            if ptr.data > value:
-                break
-            ptr_prev = ptr
-            ptr = ptr.next_node
+        if m_queen[i] == m_queen[nqueen]:
+            return False
 
-        newNode = Node(value, ptr)
-        if ptr == self.__head:
-            self.__head = newNode
-        else:
-            ptr_prev.next_node = newNode
+        if abs(m_queen[i] - m_queen[nqueen]) == abs(i - nqueen):
+            return False
+
+    return True
+
+
+def print_result(m_queen, nqueen):
+    """ Method that prints the list with the Queens positions
+
+    Args:
+        m_queen: array that has the queens positions
+        nqueen: queen number
+
+    """
+
+    res = []
+
+    for i in range(nqueen):
+        res.append([i, m_queen[i]])
+
+    print(res)
+
+
+def Queen(m_queen, nqueen):
+    """ Recursive function that executes the Backtracking algorithm
+
+    Args:
+        m_queen: array that has the queens positions
+        nqueen: queen number
+
+    """
+
+    if nqueen is len(m_queen):
+        print_result(m_queen, nqueen)
+        return
+
+    m_queen[nqueen] = -1
+
+    while((m_queen[nqueen] < len(m_queen) - 1)):
+
+        m_queen[nqueen] += 1
+
+        if isSafe(m_queen, nqueen) is True:
+
+            if nqueen is not len(m_queen):
+                Queen(m_queen, nqueen + 1)
+
+
+def solveNQueen(size):
+    """ Function that invokes the Backtracking algorithm
+
+    Args:
+        size: size of the chessboard
+
+    """
+
+    m_queen = [-1 for i in range(size)]
+
+    Queen(m_queen, 0)
+
+
+if __name__ == '__main__':
+
+    import sys
+
+    if len(sys.argv) == 1 or len(sys.argv) > 2:
+        print("Usage: nqueens N")
+        sys.exit(1)
+
+    try:
+        size = int(sys.argv[1])
+    except:
+        print("N must be a number")
+        sys.exit(1)
+
+    if size < 4:
+        print("N must be at least 4")
+        sys.exit(1)
+
+    solveNQueen(size)
