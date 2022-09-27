@@ -1,32 +1,18 @@
 #!/usr/bin/python3
-""" Module that defines the class Student
+"""
+function that inserts a line of text to a file, after each line containing a specific string
 """
 
 
-class Student:
-    """ Class to create student instances """
-
-    def __init__(self, first_name, last_name, age):
-        """ Special method to initialize """
-        self.first_name = first_name
-        self.last_name = last_name
-        self.age = age
-
-    def to_json(self, attrs=None):
-        """ Method that returns directory description """
-        obj = self.__dict__.copy()
-        if type(attrs) is list:
-
-            for item in attrs:
-                if type(item) is not str:
-                    return obj
-
-            d_list = {}
-
-            for iatr in range(len(attrs)):
-                for satr in obj:
-                    if attrs[iatr] == satr:
-                        d_list[satr] = obj[satr]
-            return d_list
-
-        return obj
+def append_after(filename="", search_string="", new_string=""):
+    '''module Search and update
+    '''
+    with open(filename, 'r+') as f:
+        lines = f.readlines()
+        i = 0
+        for line in lines:
+            if line.find(search_string) is not -1:
+                lines.insert(i + 1, new_string)
+            i += 1
+        f.seek(0)
+        f.write("".join(lines))
