@@ -1,1 +1,3 @@
-# Python - Inheritance ## Inheritance Magic Methods <br> *inheritance 
+# Python - Inheritance 
+## Inheritance Magic Methods 
+*inheritance 
