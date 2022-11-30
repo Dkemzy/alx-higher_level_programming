@@ -8,4 +8,4 @@ exports.esrever = function (list) {
       rev--;
     }
     return (newList);
-  }
+  };
