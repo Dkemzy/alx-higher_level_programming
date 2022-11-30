@@ -12,4 +12,4 @@ class Square extends SquareOne {
     }
   }
 }
-module.exports = Square;
+module.exports = Square
